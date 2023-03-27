@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import fakeData from './assets/fakeData';
 import Title from './components/title';
 import Score from './components/score';
+import CardList from './components/cardList';
 
 function App() {
 
@@ -34,11 +35,12 @@ function App() {
 
   return (
     <div className="App">
-      <Title />
-      <Score score={score} />
-      {data ? <ul>
-        {data.map(movie => <li key={movie.id}><img src={movie.image} alt={movie.title} /></li>)}
-        </ul> : <span>Loading...</span>}
+      <div>
+        <Title />
+        <Score score={score} />
+      </div>
+
+      {data ? <CardList cardsArray={data} /> : <span>Loading...</span>}
     </div>
   );
 }
