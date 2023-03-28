@@ -1,7 +1,10 @@
-import { StyledImg } from "./style"
+import Tilt from "react-parallax-tilt";
+import { StyledImg } from "./style";
 
 export default function Card({ imageSrc }) {
   return (
-    <StyledImg src={imageSrc} alt="Card" />
+    <Tilt glareEnable={true}>
+      <StyledImg src={imageSrc} alt="Card" />
+    </Tilt>
   )
 }

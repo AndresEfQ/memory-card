@@ -6,5 +6,4 @@ export const ScoreDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  color: rgb(200,0,0);
 `;

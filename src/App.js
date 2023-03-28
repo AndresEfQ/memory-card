@@ -5,17 +5,37 @@ import fakeData from './assets/fakeData';
 import Title from './components/title';
 import Score from './components/score';
 import CardList from './components/cardList';
+import Footer from './components/footer';
+import LevelScore from './components/levelScore';
+import randomize from './functions/randomize';
 
 function App() {
 
-  const [data, setData] = useState();
+  // This state should hold the entire fetch response
+  const [response, setResponse] = useState(); 
+
+  // This state should hold a random number of elements depending on the game level 
+  const [imagesArray, setImagesArray] = useState();
+
+  // This state should hold the score
   const [score, setScore] = useState({
     level: 1,
     currentScore: 0,
     maxScore: 0,
   });
 
+  // This state should check if the game is lost
+  const [isLost, setIsLost] = useState(false);
+
+  
+  /**
+   * useEffect with empty dependencies array to be called on component mount,
+   * should fetch the top 100 movies from imbd database, set the response
+   * in state, calculate a random subset with 4 elements and set it in state.
+   */
+
   useEffect(() => {
+
     /* fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
@@ -25,13 +45,35 @@ function App() {
     })
     .then(response => response.json())
     .then(response => {
-      setData(response.slice(0,9));
+
+      /**  
+       * randomize returns an array of length length formed by random
+       * elements from the array
+       */
+
+      /*setResponse(response);
+      setImagesArray(randomize({array: response, length: 4}));
+
     })
     .catch(err => console.error(err)); */
 
-    setData(fakeData);
+    setResponse(fakeData);
+    setImagesArray(randomize({array: fakeData, length: 6}));
   }, [])
 
+  const handleEshaustedList = () => {
+
+    setScore(prevScore => {
+      return {
+        ...prevScore,
+        level: prevScore.level + 1,
+      }
+    });
+
+    const cardsNumber = 2 + (score.level * 2)
+
+    setImagesArray(randomize({array: response, length: cardsNumber}))
+  }
 
   return (
     <div className="App">
@@ -39,8 +81,15 @@ function App() {
         <Title />
         <Score score={score} />
       </div>
-
-      {data ? <CardList cardsArray={data} /> : <span>Loading...</span>}
+      {imagesArray ? 
+      <CardList
+        cardsArray={imagesArray} 
+        level={score.level}
+        setIsEshaustedList={handleEshaustedList}
+        setIsLost={setIsLost} 
+        /> :
+      <span>Loading...</span>}
+      <Footer />
     </div>
   );
 }
