@@ -6,7 +6,6 @@ import Title from './components/title';
 import Score from './components/score';
 import CardList from './components/cardList';
 import Footer from './components/footer';
-import LevelScore from './components/levelScore';
 import randomize from './functions/randomize';
 
 function App() {
@@ -58,10 +57,10 @@ function App() {
     .catch(err => console.error(err)); */
 
     setResponse(fakeData);
-    setImagesArray(randomize({array: fakeData, length: 6}));
+    setImagesArray(randomize({array: fakeData, length: 4}));
   }, [])
 
-  const handleEshaustedList = () => {
+  const handleExhaustedList = () => {
 
     setScore(prevScore => {
       return {
@@ -70,25 +69,55 @@ function App() {
       }
     });
 
-    const cardsNumber = 2 + (score.level * 2)
+    setImagesArray(prevImagesArray => {
+      console.log(prevImagesArray.length + 2);
+      return (
+        randomize({array: response, length: prevImagesArray.length + 2})
+      )
+    });
+  }
 
-    setImagesArray(randomize({array: response, length: cardsNumber}))
+  const handleLost = () => {
+    setIsLost(true);
+  }
+
+  const handleGlobalScore = () => {
+    setScore(prevScore => {
+      if (prevScore.currentScore + 1 > prevScore.maxScore) {
+        return({
+          ...prevScore,
+          currentScore: prevScore.currentScore + 1,
+          maxScore: prevScore.maxScore + 1,
+        })
+      } else {
+        return ({
+          ...prevScore,
+          currentScore: prevScore.currentScore + 1,
+        })
+      }
+    })
   }
 
   return (
     <div className="App">
-      <div>
-        <Title />
-        <Score score={score} />
-      </div>
-      {imagesArray ? 
-      <CardList
-        cardsArray={imagesArray} 
-        level={score.level}
-        setIsEshaustedList={handleEshaustedList}
-        setIsLost={setIsLost} 
-        /> :
-      <span>Loading...</span>}
+      {isLost ?
+        <span>Sorry you lost</span> :
+        <>
+          <div>
+            <Title />
+            <Score score={score} />
+          </div>
+          {imagesArray ? 
+          <CardList
+            cardsArray={imagesArray} 
+            level={score.level}
+            handleGlobalScore={handleGlobalScore}
+            handleExhaustedList={handleExhaustedList}
+            handleLost={handleLost}
+            /> :
+          <span>Loading...</span>}
+        </> 
+      }
       <Footer />
     </div>
   );

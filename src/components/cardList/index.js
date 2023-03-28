@@ -1,47 +1,75 @@
-import Card from "../card";
+import { useEffect, useState } from "react";
+import shuffleArray from "../../functions/shuffleArray";
 import LevelScore from "../levelScore";
-import { useState } from "react";
+import Card from "../card";
 import { StyledUl } from "./style";
 
-export default function CardList({ cardsArray, level, setIsExhaustedList, setIsLost }) {
+export default function CardList({ cardsArray, level, handleGlobalScore, handleExhaustedList, handleLost }) {
 
   const [score, setScore] = useState(0);
-  const [selectedCards, setSelectedCards] = useState(cardsArray.map(card => {
+  const [cards, setCards] = useState(cardsArray.map(card => {
     return ({
-      cardId: card.id,
+      id: card.id,
+      image: card.image,
       isSelected: false,
     })
   }))
 
-  const handleScore = (selectedCardId) => {
+  useEffect(() => {
+    if (cards.every(card => card.isSelected)) {
+      console.log("exhausted");
+      setScore(0);
+      handleExhaustedList();
+    }
+  }, [cards])
 
-    if (selectedCards.filter(card => card.id === selectedCardId).isSelected) {
-      setIsLost(true);
+  useEffect(() => {
+    setCards(cardsArray.map(card => {
+      return ({
+        id: card.id,
+        image: card.image,
+        isSelected: false,
+      });
+    }));
+  }, [cardsArray])
+
+  const handleListScore = (selectedCardId) => {
+
+    if (cards.find(card => card.id === selectedCardId).isSelected) {
+      handleLost();
       return;
     }
 
-    setSelectedCards(prevSelectedCards => prevSelectedCards.map(card => {
-      if (card.id === selectedCardId) {
-        return ({
-          cardId: card.id, 
-          isSelected: true,
-        });
-      } else {
-        return card;
-      }
-    }));
+    setCards(prevSelectedCards => {
+      const updatedCards = prevSelectedCards.map(card => {
+        if (card.id === selectedCardId) {
+          return ({
+            id: card.id,
+            image: card.image,
+            isSelected: true,
+          });
+        } else {
+          return card;
+        }
+      })
+      return shuffleArray(updatedCards).sort((a, b) => a.isSelected - b.isSelected);
+    });
 
     setScore(prevScore => prevScore + 1);
 
-    if (selectedCards.every(card => card.isSelected)) {
-      setIsExhaustedList(true);
-    }
+    handleGlobalScore();
   }
 
   return (
     <>
       <StyledUl>
-        {cardsArray.map(card => <li key={card.id}><Card imageSrc={card.image}/></li>)}
+        {shuffleArray(cards.slice(0, 4)).map(card => {
+          return (
+            <li key={card.id}>
+              <Card card={card} handleListScore={handleListScore} />
+            </li>
+          )
+        })}
       </StyledUl>
       <LevelScore level={level} score={score} /> 
     </>
