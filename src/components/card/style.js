@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 export const StyledImg = styled.img`
-  border-radius: 16px;
   cursor: pointer;
+  border-radius: 16px;
 `;

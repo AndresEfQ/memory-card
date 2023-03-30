@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import fakeData from './assets/fakeData';
 import Title from './components/title';
 import Score from './components/score';
+import EndGame from './components/endGame';
 import CardList from './components/cardList';
 import Footer from './components/footer';
 import randomize from './functions/randomize';
@@ -24,7 +25,7 @@ function App() {
   });
 
   // This state should check if the game is lost
-  const [isLost, setIsLost] = useState(false);
+  const [isLost, setIsLost] = useState();
 
   
   /**
@@ -35,7 +36,7 @@ function App() {
 
   useEffect(() => {
 
-    /* fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
+     fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
         'X-RapidAPI-Key': '4165133decmsh137698797f8d8bbp141355jsna36576be96fd',
@@ -50,14 +51,12 @@ function App() {
        * elements from the array
        */
 
-      /*setResponse(response);
+      setResponse(response);
       setImagesArray(randomize({array: response, length: 4}));
 
     })
-    .catch(err => console.error(err)); */
+    .catch(err => console.error(err));
 
-    setResponse(fakeData);
-    setImagesArray(randomize({array: fakeData, length: 4}));
   }, [])
 
   const handleExhaustedList = () => {
@@ -77,8 +76,8 @@ function App() {
     });
   }
 
-  const handleLost = () => {
-    setIsLost(true);
+  const handleLost = (card) => {
+    setIsLost(card);
   }
 
   const handleGlobalScore = () => {
@@ -98,26 +97,36 @@ function App() {
     })
   }
 
-  return (
-    <div className="App">
-      {isLost ?
-        <span>Sorry you lost</span> :
-        <>
-          <div>
-            <Title />
-            <Score score={score} />
-          </div>
-          {imagesArray ? 
-          <CardList
-            cardsArray={imagesArray} 
-            level={score.level}
-            handleGlobalScore={handleGlobalScore}
-            handleExhaustedList={handleExhaustedList}
-            handleLost={handleLost}
-            /> :
-          <span>Loading...</span>}
-        </> 
+  const handleResetGame = () => {
+    setImagesArray(randomize({array: response, length: 4}));
+    setScore(prevScore => {
+      return {
+        ...prevScore,
+        level: 1,
+        currentScore: 0,
       }
+    })
+    setIsLost();
+  }
+
+  return (
+    <div className="App"> 
+      <>
+        <div>
+          <Title />
+          <Score score={score} />
+        </div>
+        {isLost ? <EndGame card={isLost} handleResetGame={handleResetGame} /> :
+          response ? <CardList
+          cardsArray={imagesArray} 
+          level={score.level}
+          handleGlobalScore={handleGlobalScore}
+          handleExhaustedList={handleExhaustedList}
+          handleLost={handleLost}
+          /> :
+          <span>Loading...</span>
+        }
+      </> 
       <Footer />
     </div>
   );

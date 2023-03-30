@@ -6,7 +6,12 @@ import { TitleDiv } from './style'
 export default function Title() {
   return (
     <TitleDiv>
-      <img src={title1} alt="MOVIES" /><img src={title2} alt="the memory" /><img src={title3} alt="game" />
+      <div>
+        <img src={title1} alt="MOVIES" />
+        <img src={title2} alt="the memory" />
+        <img src={title3} alt="game" />
+      </div>
+      <p>Choose movies from most to least favorite just make sure to not repeat them</p>
     </TitleDiv>
   )
 }

@@ -35,8 +35,9 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
 
   const handleListScore = (selectedCardId) => {
 
-    if (cards.find(card => card.id === selectedCardId).isSelected) {
-      handleLost();
+    const selectedCard = cards.find(card => card.id === selectedCardId)
+    if (selectedCard.isSelected) {
+      handleLost(selectedCard);
       return;
     }
 

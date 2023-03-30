@@ -6,7 +6,7 @@ export default function randomize({ array, length }) {
   do {
     indexes = [];
     for (let i = 0; i < length; i++) {
-      indexes.push(Math.floor(Math.random() * 9))
+      indexes.push(Math.floor(Math.random() * 100))
     }
     set = new Set(indexes)
   } while (set.size !== length);
