@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import shuffleArray from "../../functions/shuffleArray";
 import LevelScore from "../levelScore";
 import Card from "../card";
-import { StyledUl } from "./style";
+import { CardListContainer, StyledUl } from "./style";
 
 export default function CardList({ cardsArray, level, handleGlobalScore, handleExhaustedList, handleLost }) {
 
@@ -10,6 +10,7 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
   const [cards, setCards] = useState(cardsArray.map(card => {
     return ({
       id: card.id,
+      title: card.title,
       image: card.image,
       isSelected: false,
     })
@@ -27,6 +28,7 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
     setCards(cardsArray.map(card => {
       return ({
         id: card.id,
+        title: card.title,
         image: card.image,
         isSelected: false,
       });
@@ -46,6 +48,7 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
         if (card.id === selectedCardId) {
           return ({
             id: card.id,
+            title: card.title,
             image: card.image,
             isSelected: true,
           });
@@ -62,7 +65,7 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
   }
 
   return (
-    <>
+    <CardListContainer>
       <StyledUl>
         {shuffleArray(cards.slice(0, 4)).map(card => {
           return (
@@ -73,6 +76,6 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
         })}
       </StyledUl>
       <LevelScore level={level} score={score} /> 
-    </>
+    </CardListContainer>
   )
 }

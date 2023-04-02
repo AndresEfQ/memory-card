@@ -1,11 +1,26 @@
+import { useState } from "react";
 import Tilt from "react-parallax-tilt";
-import { StyledImg } from "./style";
+import { StyledCard } from "./style";
+import failImg from "../../assets/images/film-roll.png"
 
 export default function Card({ card, handleListScore }) {
 
+  const [src, setSrc] = useState(card.image);
+
   return (
-    <Tilt glareEnable={true}>
-      <StyledImg src={card.image} alt="Card" onClick={() => handleListScore(card.id)} />
-    </Tilt>
+    <StyledCard>
+      <Tilt glareEnable={true}>
+        {src === failImg && <h2>
+          We couldn't find the poster, but this should be <span>{card.title}</span>
+        </h2>}
+        <img
+          src={src}
+          alt="Card"
+          onClick={() => handleListScore(card.id)}
+          onTouchEnd={() => handleListScore(card.id)}
+          onError={() => setSrc(failImg)}
+        />
+      </Tilt>
+    </StyledCard>
   )
 }

@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
 
-     fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
+     /* fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
         'X-RapidAPI-Key': '4165133decmsh137698797f8d8bbp141355jsna36576be96fd',
@@ -49,13 +49,17 @@ function App() {
       /**  
        * randomize returns an array of length length formed by random
        * elements from the array
-       */
+       
 
       setResponse(response);
       setImagesArray(randomize({array: response, length: 4}));
-
+      console.log(response);
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err)); */
+    
+    setResponse(fakeData)
+    const fakeImagesArray = randomize({array: fakeData, length: 4, maxIndex: 4})
+    setImagesArray(fakeImagesArray);
 
   }, [])
 
@@ -69,7 +73,6 @@ function App() {
     });
 
     setImagesArray(prevImagesArray => {
-      console.log(prevImagesArray.length + 2);
       return (
         randomize({array: response, length: prevImagesArray.length + 2})
       )
@@ -98,7 +101,7 @@ function App() {
   }
 
   const handleResetGame = () => {
-    setImagesArray(randomize({array: response, length: 4}));
+    setImagesArray(randomize({array: response, length: 4, maxIndex: 4}));
     setScore(prevScore => {
       return {
         ...prevScore,

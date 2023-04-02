@@ -1,7 +1,25 @@
-.App > div {
+html {
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.App > div:first-of-type {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
+@media only screen and (max-width: 900px) {
+  .App > div:first-of-type {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 

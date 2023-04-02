@@ -4,7 +4,7 @@ export const StyledFooter = styled.footer`
   font-size: 20px;
   width: 100%;
   margin-bottom: 2vh;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
   font-weight: 500;
   color: rgb(80, 80, 80);

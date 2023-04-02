@@ -6,8 +6,10 @@ export default function EndGame({ card, handleResetGame }) {
   return (
     <StyledDiv>
       <div>
-        <h2>Game Over</h2>
-        <p>It looks like you really liked</p>
+        <div>
+          <h2>Game Over</h2>
+          <p>It looks like you really liked</p>
+        </div>
         <Card card={card} ></Card>
         <div>
           <button onClick={handleResetGame}>New Game</button>

@@ -3,8 +3,14 @@ import styled from "styled-components";
 export const StyledDiv = styled.div`
 
   margin-top: -10vh;
+  position: relative;
 
-    & > div {
+  @media only screen and (max-width: 900px) {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+    & > div > div {
       color: rgb(180,0,0);
       font-weight: 700;
       font-family: monospace;
@@ -14,11 +20,24 @@ export const StyledDiv = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-shadow: 0 0 10px #fff;
 
       & > * {
         margin: 5px;
       }
+
+      @media only screen and (max-width: 900px) {
+        &:first-child {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%);
+          text-align: center;
+          z-index: 2;
+        }
+      }
     }
+
   
   button {
     border: 3px solid rgb(180,0,0);
