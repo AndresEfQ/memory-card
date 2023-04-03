@@ -26,4 +26,13 @@ align-items: center;
   & span {
     color: red;
   }
+
+@media only screen and (max-width: 768px) {
+  height: 30vh;
+
+  & img {
+    height: 30vh;
+    width: 40vw;
+  }
+}
 `;

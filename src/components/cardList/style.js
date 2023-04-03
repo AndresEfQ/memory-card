@@ -18,4 +18,8 @@ export const StyledUl = styled.ul`
     grid-template-columns: repeat(2, 1fr);
     row-gap: 25px;
   }
+
+  @media only screen and (max-width: 768px) {
+    height: 60vh;
+  }
 `;

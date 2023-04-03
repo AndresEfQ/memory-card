@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
 
-     /* fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
+     fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
         'X-RapidAPI-Key': '4165133decmsh137698797f8d8bbp141355jsna36576be96fd',
@@ -46,20 +46,21 @@ function App() {
     .then(response => response.json())
     .then(response => {
 
-      /**  
-       * randomize returns an array of length length formed by random
-       * elements from the array
+      if (response.message) {
+        console.log("the server has responded", response);
+        setResponse(fakeData)
+        const fakeImagesArray = randomize({array: fakeData, length: 4})
+        setImagesArray(fakeImagesArray);
+      } else {
+        setResponse(response);
+        setImagesArray(randomize({array: response, length: 4}));
+      }
        
-
-      setResponse(response);
-      setImagesArray(randomize({array: response, length: 4}));
-      console.log(response);
     })
-    .catch(err => console.error(err)); */
+    .catch(err => {
+      console.error("there was an error", err)
+    });
     
-    setResponse(fakeData)
-    const fakeImagesArray = randomize({array: fakeData, length: 4, maxIndex: 4})
-    setImagesArray(fakeImagesArray);
 
   }, [])
 
@@ -101,7 +102,7 @@ function App() {
   }
 
   const handleResetGame = () => {
-    setImagesArray(randomize({array: response, length: 4, maxIndex: 4}));
+    setImagesArray(randomize({array: response, length: 4}));
     setScore(prevScore => {
       return {
         ...prevScore,

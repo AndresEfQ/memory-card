@@ -32,4 +32,18 @@ export const TitleDiv = styled.div`
     text-align: center;
     margin: 1vh;
   }
+
+  @media only screen and (max-width: 768px) {
+  height: 18vh;
+
+    & > div {
+      height: 11vh;
+      display: flex;
+      justify-content: center;
+
+      & > img {
+        width: 70%;
+      }
+    }
+  }
 `

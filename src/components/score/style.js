@@ -15,4 +15,11 @@ export const ScoreDiv = styled.div`
       margin: 20px;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+
+    & > span {
+      margin: 10px 20px;
+    }
+  }
 `;

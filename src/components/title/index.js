@@ -9,7 +9,7 @@ export default function Title() {
         <img src={title1} alt="MOVIES" />
         <img src={title2} alt="The memory game" />
       </div>
-      <p>Choose movies from most to least favorite, just make sure to not repeat them</p>
+      <p>Choose movies from your most to least favorite, just make sure to not repeat them</p>
     </TitleDiv>
   )
 }

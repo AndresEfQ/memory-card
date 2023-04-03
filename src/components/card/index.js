@@ -17,7 +17,7 @@ export default function Card({ card, handleListScore }) {
           src={src}
           alt="Card"
           onClick={() => handleListScore(card.id)}
-          onTouchEnd={() => handleListScore(card.id)}
+          onTouchStart={() => handleListScore(card.id)}
           onError={() => setSrc(failImg)}
         />
       </Tilt>
