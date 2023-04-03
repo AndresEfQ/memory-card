@@ -21,6 +21,8 @@ align-items: center;
     position: absolute;
     color: white;
     text-shadow: 1px 1px 1px #000;
+    pointer-events: none;
+    margin: 10% 5%;
   }
 
   & span {

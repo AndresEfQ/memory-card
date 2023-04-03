@@ -9,7 +9,7 @@ export const CardListContainer = styled.div`
 
 export const StyledUl = styled.ul`
   width: 100%;
-  padding: 0 auto;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   list-style: none;

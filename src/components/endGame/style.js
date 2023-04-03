@@ -8,12 +8,15 @@ export const StyledDiv = styled.div`
   @media only screen and (max-width: 900px) {
     margin-top: 0;
     margin-bottom: 10px;
+    background-color: rgb(220,220,220);
+    margin: 0 5vh;
+    border-radius: 16px;
   }
 
     & > div > div {
       color: rgb(180,0,0);
       font-weight: 700;
-      font-family: monospace;
+      /* font-family: monospace; */
       font-size: 1.5rem;
       flex: 1;
       display: flex;
@@ -22,11 +25,16 @@ export const StyledDiv = styled.div`
       justify-content: center;
       text-shadow: 0 0 10px #fff;
 
-      & > * {
-        margin: 5px;
+      & p {
+        color: rgb(80, 80, 80);
       }
 
-      @media only screen and (max-width: 900px) {
+      & > * {
+        margin: 5px;
+        text-align: center;
+      }
+
+      /* @media only screen and (max-width: 900px) {
         &:first-child {
           position: absolute;
           top: 0;
@@ -35,7 +43,7 @@ export const StyledDiv = styled.div`
           text-align: center;
           z-index: 2;
         }
-      }
+      } */
     }
 
   
@@ -43,7 +51,7 @@ export const StyledDiv = styled.div`
     border: 3px solid rgb(180,0,0);
     background-color: rgb(255,255,255);
     color: rgb(180,0,0);
-    border-radius: 5px;
+    border-radius: 7px;
     font-family: monospace;
     font-size: 1.5rem;
     font-weight: 700;
