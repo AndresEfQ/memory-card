@@ -39,7 +39,7 @@ function App() {
      fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '4165133decmsh137698797f8d8bbp141355jsna36576be96fd',
+        'X-RapidAPI-Key': '0b927fcb83mshf7a96be45fbcb5fp1991bbjsnae6617eb3fdf',
         'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com',
       },
     })
@@ -52,6 +52,7 @@ function App() {
         const fakeImagesArray = randomize({array: fakeData, length: 4})
         setImagesArray(fakeImagesArray);
       } else {
+        console.log(response);
         setResponse(response);
         setImagesArray(randomize({array: response, length: 4}));
       }
