@@ -4,10 +4,8 @@ export const StyledDiv = styled.div`
 
   margin-top: -10vh;
   position: relative;
-
+  
   @media only screen and (max-width: 900px) {
-    margin-top: 0;
-    margin-bottom: 10px;
     background-color: rgb(220,220,220);
     margin: 0 5vh;
     border-radius: 16px;
@@ -33,17 +31,6 @@ export const StyledDiv = styled.div`
         margin: 5px;
         text-align: center;
       }
-
-      /* @media only screen and (max-width: 900px) {
-        &:first-child {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translate(-50%);
-          text-align: center;
-          z-index: 2;
-        }
-      } */
     }
 
   

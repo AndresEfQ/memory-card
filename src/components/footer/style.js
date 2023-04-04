@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledFooter = styled.footer`
   font-size: 20px;
   width: 100%;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
   /* position: absolute; */
   bottom: 0;
   font-weight: 500;

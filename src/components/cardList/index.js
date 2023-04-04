@@ -7,6 +7,7 @@ import { CardListContainer, StyledUl } from "./style";
 export default function CardList({ cardsArray, level, handleGlobalScore, handleExhaustedList, handleLost }) {
 
   const [score, setScore] = useState(0);
+  const [isExhausted, setIsExhausted] = useState(false);
   const [cards, setCards] = useState(cardsArray.map(card => {
     return ({
       id: card.id,
@@ -20,7 +21,7 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
     if (cards.every(card => card.isSelected)) {
       console.log("exhausted");
       setScore(0);
-      handleExhaustedList();
+      setIsExhausted(true);
     }
   }, [cards])
 
@@ -68,16 +69,28 @@ export default function CardList({ cardsArray, level, handleGlobalScore, handleE
 
   return (
     <CardListContainer>
-      <StyledUl>
-        {shuffleArray(cards.slice(0, 4)).map(card => {
-          return (
-            <li key={card.id}>
-              <Card card={card} handleListScore={handleListScore} />
-            </li>
-          )
-        })}
-      </StyledUl>
-      <LevelScore level={level} score={score} /> 
+      {isExhausted ? 
+        <div>
+          <h2>LVL completed, next lvl {level + 1}</h2>
+          <p>Forget the movies you have selected until now</p>
+          <button onClick={() => {
+            setIsExhausted(false)
+            handleExhaustedList()
+          }}>OK</button>
+        </div> :
+        <>
+          <StyledUl>
+            {shuffleArray(cards.slice(0, 4)).map(card => {
+              return (
+                <li key={card.id}>
+                  <Card card={card} handleListScore={handleListScore} />
+                </li>
+              )
+            })}
+          </StyledUl>
+          <LevelScore level={level} score={score} />
+        </>
+      } 
     </CardListContainer>
   )
 }

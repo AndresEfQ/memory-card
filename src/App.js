@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
+import GridLoader from "react-spinners/GridLoader";
 import fakeData from './assets/fakeData';
 import Title from './components/title';
 import Score from './components/score';
@@ -129,7 +130,7 @@ function App() {
           handleExhaustedList={handleExhaustedList}
           handleLost={handleLost}
           /> :
-          <span>Loading...</span>
+          <GridLoader className='spinner' color="rgb(80, 80, 80)" size={40} />
         }
       </> 
       <Footer />
