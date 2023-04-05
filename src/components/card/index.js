@@ -15,7 +15,7 @@ export default function Card({ card, handleListScore }) {
         </h2>}
         <img
           src={src}
-          alt="Card"
+          alt={card.title}
           onClick={() => handleListScore(card.id)}
           onError={() => setSrc(failImg)}
         />

@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import GridLoader from "react-spinners/GridLoader";
@@ -26,7 +25,6 @@ function App() {
 
   const [isLost, setIsLost] = useState();
 
-  
   /**
    * When the app is mounted, it makes the fetch call and sets a random array of 
    * 4 movies for lvl 1 in imagesArray,
@@ -34,6 +32,12 @@ function App() {
 
   useEffect(() => {
 
+    /**
+     * Fetch call to the imdb-top-100-movies api, I'm aware exposing the api key
+     * is a bad practice but I didn't want to code the server side for this app,
+     * yet I wanted to practice fetching data from an api and asynchronously handling
+     * data
+     */
      fetch('https://imdb-top-100-movies.p.rapidapi.com/', {
       method: 'GET',
       headers: {
@@ -55,7 +59,6 @@ function App() {
         const backupImagesArray = randomize({array: backupData, length: 4})
         setImagesArray(backupImagesArray);
       } else {
-        console.log(response);
         setResponse(response);
         setImagesArray(randomize({array: response, length: 4}));
       }
@@ -68,6 +71,10 @@ function App() {
 
   }, [])
 
+  /**
+   * When each level is completed, this function updates the level in score and 
+   * changes the images set for the new level.
+   */
   const handleExhaustedList = () => {
 
     setScore(prevScore => {
@@ -84,10 +91,18 @@ function App() {
     });
   }
 
+  /**
+   * When a card is repeated, this function sets the isLost state to the repeated card
+   * @param {Object} card - The repeated card
+   */
   const handleLost = (card) => {
     setIsLost(card);
   }
 
+  /**
+   * When the player scores, this function updates the score, if the new score is
+   * bigger than max score, max score gets updated too
+   */
   const handleGlobalScore = () => {
     setScore(prevScore => {
       if (prevScore.currentScore + 1 > prevScore.maxScore) {
@@ -105,6 +120,10 @@ function App() {
     })
   }
 
+  /**
+   * This function resets the score to 0, level to 1 and the set of cards to 4,
+   * it keeps the max score.
+   */
   const handleResetGame = () => {
     setImagesArray(randomize({array: response, length: 4}));
     setScore(prevScore => {
