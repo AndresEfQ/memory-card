@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import GridLoader from "react-spinners/GridLoader";
-import fakeData from './assets/fakeData';
+import backupData from './assets/backupData';
 import Title from './components/title';
 import Score from './components/score';
 import EndGame from './components/endGame';
@@ -18,21 +18,18 @@ function App() {
   // This state should hold a random number of elements depending on the game level 
   const [imagesArray, setImagesArray] = useState();
 
-  // This state should hold the score
   const [score, setScore] = useState({
     level: 1,
     currentScore: 0,
     maxScore: 0,
   });
 
-  // This state should check if the game is lost
   const [isLost, setIsLost] = useState();
 
   
   /**
-   * useEffect with empty dependencies array to be called on component mount,
-   * should fetch the top 100 movies from imbd database, set the response
-   * in state, calculate a random subset with 4 elements and set it in state.
+   * When the app is mounted, it makes the fetch call and sets a random array of 
+   * 4 movies for lvl 1 in imagesArray,
    */
 
   useEffect(() => {
@@ -47,11 +44,16 @@ function App() {
     .then(response => response.json())
     .then(response => {
 
+      /**
+       * When the api key gets used up or fails for any reason, the server response
+       * has a message, in that case, the app uses the backup data
+       */
       if (response.message) {
         console.log("the server has responded", response);
-        setResponse(fakeData)
-        const fakeImagesArray = randomize({array: fakeData, length: 4})
-        setImagesArray(fakeImagesArray);
+        console.log("The api key has failed, fallig back to backup data")
+        setResponse(backupData)
+        const backupImagesArray = randomize({array: backupData, length: 4})
+        setImagesArray(backupImagesArray);
       } else {
         console.log(response);
         setResponse(response);

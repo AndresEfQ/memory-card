@@ -10,7 +10,7 @@ align-items: center;
 
 & img {
   cursor: pointer;
-  width: 90%;
+  width: 100%;
   border-radius: 16px;
     /* position: absolute */
   }
@@ -28,6 +28,15 @@ align-items: center;
   & span {
     color: red;
   }
+
+@media only screen and (max-width: 900px) {
+  height: 30vh;
+
+  & img {
+    height: 30vh;
+    width: 25vw;
+  }
+}
 
 @media only screen and (max-width: 768px) {
   height: 30vh;

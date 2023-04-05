@@ -40,19 +40,22 @@ export const CardListContainer = styled.div`
 `;
 
 export const StyledUl = styled.ul`
-  width: 100%;
+  width: 90%;
   padding: 0;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   list-style: none;
-
+  gap: 5vh;
+  
   @media only screen and (max-width: 900px) {
+    width: 60%;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 15px;
+    gap: 15px;
   }
-
+  
   @media only screen and (max-width: 768px) {
+    width: 90%;
     height: 62vh;
   }
 `;
